@@ -9,17 +9,33 @@ import { ProdutoModule } from './produto/produto.module';
 // import { Categoria } from './categoria/entities/categoria.entity';
 // import { Produto } from './produto/entities/produto.entity';
 
+// @Module({
+//   imports: [
+//     ConfigModule.forRoot(),
+//     TypeOrmModule.forRootAsync({
+//       useClass: ProdService,
+//       imports: [ConfigModule],
+//     }),
+//     ProdutoModule,
+//     CategoriaModule,
+//   ],
+//   controllers: [AppController],
+//   providers: [],
+// })
+// export class AppModule {}
+
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal: true, // Torna as variáveis acessíveis em todo o app
+    }),
     TypeOrmModule.forRootAsync({
       useClass: ProdService,
-      imports: [ConfigModule],
     }),
     ProdutoModule,
     CategoriaModule,
   ],
   controllers: [AppController],
-  providers: [],
+  providers: [ProdService], // Você precisa declarar o provider aqui!
 })
 export class AppModule {}
